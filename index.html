@@ -64,6 +64,7 @@
             })
             .then(res => res.json())
             .then(data => {
+                console.log('APIからのデータ:', data);
                 result.innerHTML = `
                     <h2>分析結果</h2>
                     <p><strong>出来事の要約：</strong> ${data.summary}</p>
