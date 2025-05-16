@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ニュース分解くん（仮）</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 2em;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        input[type="url"] {
+            width: 100%;
+            padding: 0.5em;
+            font-size: 1em;
+            margin-bottom: 1em;
+        }
+        button {
+            padding: 0.5em 1em;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 2em;
+            border-top: 1px solid #ccc;
+            padding-top: 1.5em;
+        }
+        .share-buttons {
+            margin-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>ニュースを分解してくれるAI（仮）</h1>
+
+    <p>気になるニュースのURLを貼って、「分解する」を押してみてください。</p>
+
+    <input type="url" id="newsUrl" placeholder="https://example.com/news" />
+    <button onclick="analyze()">分解する</button>
+
+    <div id="result" class="result" style="display:none;">
+        <h2>分析結果</h2>
+        <p><strong>出来事の要約：</strong> 芸能人が映画を降板。理由は不倫報道。</p>
+        <p><strong>影響評価：</strong> 一般人の生活には影響ありません。</p>
+        <p><strong>感情トリガー：</strong> 正義感、優越感、倫理観への刺激</p>
+        <p><strong>代替提案：</strong> 犬の動画を見る、散歩に出る、冷蔵庫を整理する</p>
+
+        <div class="share-buttons">
+            <p><strong>シェアする：</strong></p>
+            <a id="shareTwitter" href="#" target="_blank">🐦 Xでシェア</a><br />
+            <a id="shareCopy" href="#" onclick="copyLink()">📋 リンクをコピー</a>
+        </div>
+    </div>
+
+    <script>
+        function analyze() {
+            const url = document.getElementById('newsUrl').value;
+            const result = document.getElementById('result');
+            const shareTwitter = document.getElementById('shareTwitter');
+
+            if (!url) {
+                alert("URLを入力してください。");
+                return;
+            }
+
+            // 仮のシェア用メッセージ
+            const shareText = encodeURIComponent(
+                `このニュース、AIによる診断では「感情的に反応する必要なし」と判定されました。\n${url}\n#ニュース分解くん`
+            );
+
+            shareTwitter.href = `https://twitter.com/intent/tweet?text=${shareText}`;
+            result.style.display = 'block';
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert("リンクをコピーしました！");
+            });
+        }
+    </script>
+</body>
+</html>
